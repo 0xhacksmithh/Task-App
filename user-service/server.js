@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/users");
+    await mongoose.connect("mongodb://taskAppDB:27017/users");
     console.log("DB Connection Sucessful");
   } catch (error) {
     console.log("DB Connection Failed");

@@ -1,0 +1,19 @@
+services:
+  mongo:
+    image: mongo
+    container_name: taskAppDB
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/taskAppDB
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
