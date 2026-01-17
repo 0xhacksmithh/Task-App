@@ -18,7 +18,8 @@ services:
     build: ./user-service
     container_name: user-service
     ports:
-      - "3000:3000"
+      - "3000:3000" # Express PORT
+      - "50051:50051" # gRPC PORT
     depends_on:
       - mongo
 
@@ -28,6 +29,7 @@ services:
     ports:
       - "3001:3001"
     depends_on:
+      - user-service
       - mongo
       - rabbitmq
 
