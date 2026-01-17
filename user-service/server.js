@@ -10,6 +10,7 @@ import {
 } from "./controllers/userControllers.js";
 import { authenticate } from "./middleware/auth.middleware.js";
 import { authorizeRoles } from "./middleware/role.middleware.js";
+import { startGrpcServer } from "./grpc.js";
 
 const app = express();
 
@@ -29,7 +30,10 @@ app.get("/allReaders", authenticate, authorizeRoles("admin"), getReaders);
 
 // Server
 app.listen(port, () => {
+  // Express Server
   console.log(`Server is running on port :: 3000`);
 });
 
-connectDB();
+connectDB(); // DB Connection
+
+startGrpcServer(); // gRPC Server
