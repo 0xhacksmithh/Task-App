@@ -1,16 +1,37 @@
 import express from "express";
-import { createPosts, fetchPosts } from "./controllers/postControllers.js";
+import {
+  addComment,
+  createPosts,
+  deletePost,
+  fetchPosts,
+  getComments,
+  likePost,
+  unlikePost,
+  updatePost,
+} from "./controllers/postControllers.js";
 import { connectDB } from "./database/db.js";
 import { port } from "./config/index.js";
+import { authenticate } from "./middleware/auth.middleware.js";
 
 const app = express();
 
 app.use(express.json());
 
 // Routes
-app.get("/tasks", fetchPosts);
 
-app.post("/tasks", createPosts);
+app.post("/posts", authenticate, createPosts);
+app.put("/posts/:postId", authenticate, updatePost);
+app.delete("/posts/:postId", authenticate, deletePost);
+
+//// Like, Dislike Routes
+app.post("/posts/:postId/like", authenticate, likePost);
+app.post("/posts/:postId/unlike", authenticate, unlikePost);
+
+//// Comments Routes
+app.post("/posts/:postId/comment", authenticate, addComment);
+app.get("/posts/:postId/comments", getComments);
+
+////
 
 app.listen(port, () => {
   console.log(`Server is running on port :: ${port}`);
