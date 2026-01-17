@@ -3,7 +3,6 @@ import {
   addComment,
   createPosts,
   deletePost,
-  fetchPosts,
   getComments,
   likePost,
   unlikePost,
@@ -12,6 +11,7 @@ import {
 import { connectDB } from "./database/db.js";
 import { port } from "./config/index.js";
 import { authenticate } from "./middleware/auth.middleware.js";
+import { commentRateLimiter } from "./middleware/rateLimit.middleware.js";
 
 const app = express();
 
@@ -28,7 +28,12 @@ app.post("/posts/:postId/like", authenticate, likePost);
 app.post("/posts/:postId/unlike", authenticate, unlikePost);
 
 //// Comments Routes
-app.post("/posts/:postId/comment", authenticate, addComment);
+app.post(
+  "/posts/:postId/comment",
+  authenticate,
+  commentRateLimiter,
+  addComment
+);
 app.get("/posts/:postId/comments", getComments);
 
 ////
