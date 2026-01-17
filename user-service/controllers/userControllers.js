@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { userModel } from "../database/userSchema.js";
+import { userModel } from "../database/user.model.js";
 import bcrypt from "bcrypt";
 import { jwt_secret } from "../config/index.js";
 

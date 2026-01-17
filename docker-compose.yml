@@ -22,9 +22,9 @@ services:
     depends_on:
       - mongo
 
-  task-service:
-    build: ./task-service
-    container_name: task-service
+  post-service:
+    build: ./post-service
+    container_name: post-service
     ports:
       - "3001:3001"
     depends_on:
