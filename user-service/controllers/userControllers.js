@@ -42,7 +42,7 @@ export const signupController = async (req, res) => {
 
 export const signinController = async (req, res) => {
   try {
-    const { email, password, type } = req.body;
+    const { email, password } = req.body;
 
     // 1. Find user + password
     const user = await userModel.findOne({ email }).select("+password");
@@ -106,6 +106,14 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-export const getAuthors = async (req, res) => {};
+export const getAuthors = async (req, res) => {
+  res.json({
+    message: "Routes To Be Created",
+  });
+};
 
-export const getReaders = async (req, res) => {};
+export const getReaders = async (req, res) => {
+  res.json({
+    message: "Routes To Be Created",
+  });
+};

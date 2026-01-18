@@ -8,7 +8,6 @@ import rateLimiter from "./middlewares/rateLimit.js";
 const app = express();
 
 app.use(cors());
-app.use(express.json());
 app.use(morgan("dev"));
 app.use(rateLimiter);
 
@@ -36,6 +35,13 @@ app.use(
     changeOrigin: true,
   }),
 );
+
+/*
+*The issue with http-proxy-middleware not working for POST requests while working for GET requests typically 
+occurs when a body-parser middleware is used before the proxy middleware. 
+The body-parser consumes the incoming request stream, leaving nothing for the proxy to forward. 
+*/
+app.use(express.json()); //
 
 app.listen(8080, () => {
   console.log("🚀 API Gateway running on port 8080");

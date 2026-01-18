@@ -17,15 +17,15 @@ const app = express();
 app.use(express.json());
 
 // End-Points
+
 app.get("/users", (req, res) => {
   res.json({
-    message: "Hello from User Microservice",
+    message: "Hlw From GET Users",
   });
 });
-
-app.get("/users/helth", (req, res) => {
+app.post("/users", (req, res) => {
   res.json({
-    message: "Health Is OK",
+    message: "Hlw From POST Users",
   });
 });
 
@@ -33,12 +33,13 @@ app.post("/users/signup", signupController);
 
 app.post("/users/signin", signinController);
 
-app.get("/allAuthors", authenticate, authorizeRoles("admin"), getAuthors);
-
 // Admin Only Routes
-app.get("/allUsers", authenticate, authorizeRoles("admin"), getAllUsers);
+app.get("/users/allUsers", authenticate, authorizeRoles("admin"), getAllUsers);
 
-app.get("/allReaders", authenticate, authorizeRoles("admin"), getReaders);
+app.get("/users/allReaders", authenticate, authorizeRoles("admin"), getReaders);
+
+// Reader
+app.get("/users/allAuthors", authenticate, getAuthors);
 
 // Server
 app.listen(port, () => {
