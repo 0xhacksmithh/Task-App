@@ -1,4 +1,5 @@
 import amqp from "amqplib";
+import { rabbitMq_url } from "../config/index.js";
 
 /// RabbitMQ connection
 export let channel, connection;
@@ -6,9 +7,9 @@ export let channel, connection;
 export async function connectRabbitMQwithRetry(retries = 5, delay = 3000) {
   while (retries) {
     try {
-      connection = await amqp.connect("amqp://rabbitmq");
+      connection = await amqp.connect(rabbitMq_url);
       channel = await connection.createChannel();
-      await channel.assertQueue("task_created");
+      await channel.assertQueue("post_created");
       console.log("Connection to RabbitMQ Sucessfull");
       break;
     } catch (error) {

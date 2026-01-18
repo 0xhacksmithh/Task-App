@@ -17,6 +17,18 @@ const app = express();
 app.use(express.json());
 
 // End-Points
+app.get("/users", (req, res) => {
+  res.json({
+    message: "Hello from User Microservice",
+  });
+});
+
+app.get("/users/helth", (req, res) => {
+  res.json({
+    message: "Health Is OK",
+  });
+});
+
 app.post("/users/signup", signupController);
 
 app.post("/users/signin", signinController);

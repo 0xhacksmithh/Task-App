@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import { createProxyMiddleware } from "http-proxy-middleware";
-import { SERVICES } from "./config/services";
-import rateLimiter from "./middlewares/rateLimit";
+import { SERVICES } from "./config/services.js";
+import rateLimiter from "./middlewares/rateLimit.js";
 
 const app = express();
 
@@ -14,14 +14,14 @@ app.use(rateLimiter);
 
 /**
  * USER SERVICE ROUTES
- * /auth/login
- * /auth/register
+ * /users
  */
 app.use(
   "/users",
   createProxyMiddleware({
-    target: SERVICES.USER,
+    target: `${SERVICES.USER + "/users"}`,
     changeOrigin: true,
+    logLevel: "debug",
   }),
 );
 
@@ -32,7 +32,7 @@ app.use(
 app.use(
   "/posts",
   createProxyMiddleware({
-    target: SERVICES.POST,
+    target: `${SERVICES.POST + "/posts"}`,
     changeOrigin: true,
   }),
 );
