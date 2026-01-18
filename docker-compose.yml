@@ -41,5 +41,14 @@ services:
     depends_on:
       - rabbitmq
 
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    port:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      - post-service
+
 volumes:
   mongo_data:
