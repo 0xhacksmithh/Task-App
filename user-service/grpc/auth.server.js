@@ -3,9 +3,10 @@ import { userModel } from "../database/user.model.js";
 export const validateUser = async (call, callback) => {
   const { userId, role } = call.request;
 
+  console.log("Incomming call");
+
   try {
     const user = await userModel.findById(userId);
-
     if (!user) {
       return callback(null, {
         valid: false,

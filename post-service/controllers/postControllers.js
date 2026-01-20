@@ -112,7 +112,7 @@ export const likePost = async (req, res) => {
       $addToSet: { likedBy: userId },
       $inc: { likes: 1 },
     },
-    { new: true }
+    { new: true },
   );
 
   if (!post) {
@@ -132,7 +132,7 @@ export const unlikePost = async (req, res) => {
       $pull: { likedBy: userId },
       $inc: { likes: -1 },
     },
-    { new: true }
+    { new: true },
   );
 
   if (!post) {
@@ -161,7 +161,7 @@ export const addComment = async (req, res) => {
         },
       },
     },
-    { new: true }
+    { new: true },
   );
 
   if (!post) {

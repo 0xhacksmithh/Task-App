@@ -18,17 +18,6 @@ app.use(express.json());
 
 // End-Points
 
-app.get("/users", (req, res) => {
-  res.json({
-    message: "Hlw From GET Users",
-  });
-});
-app.post("/users", (req, res) => {
-  res.json({
-    message: "Hlw From POST Users",
-  });
-});
-
 app.post("/users/signup", signupController);
 
 app.post("/users/signin", signinController);

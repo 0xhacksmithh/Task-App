@@ -17,7 +17,8 @@ export const startGrpcServer = () => {
   });
 
   server.bindAsync(
-    "0.0.0.0:50051",
+    "0.0.0.0:50051", ///
+    // "http://localhost/50051",
     grpc.ServerCredentials.createInsecure(),
     (err, port) => {
       if (err) {
@@ -26,6 +27,6 @@ export const startGrpcServer = () => {
       }
 
       console.log(`🚀 gRPC Server running on port ${port}`);
-    }
+    },
   );
 };

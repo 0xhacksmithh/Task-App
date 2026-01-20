@@ -17,23 +17,26 @@ export const authenticate = (req, res, next) => {
     authClient.ValidateUser(
       {
         userId: payload.userId,
-        role: payload.role,
+        role: payload.type,
       },
-      (err, res) => {
-        if (err || !res.valid) {
-          return res.status(401).json({
-            message: "User Validation Failed",
-          });
-        }
+      (err, result) => {
+        console.log(`gRPC Error Is :: ${err}`);
+        console.log(`typoOF Messgae from gRPC :: ${typeof result}`);
+        console.log(`Result From gRPC :: ${result}`);
+        // if (err || !result.valid) {
+        //   return res.status(401).json({
+        //     message: result.message,
+        //   });
+        // }
 
-        req.user = {
-          userId: payload.userId,
-          role: payload.role,
-          name: payload.name,
-        };
+        // req.user = {
+        //   userId: payload.userId,
+        //   role: payload.role,
+        //   name: payload.name,
+        // };
 
         next();
-      }
+      },
     );
   } catch {
     return res.status(401).json({ message: "Invalid Token" });
